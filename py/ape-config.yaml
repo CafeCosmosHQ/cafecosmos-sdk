@@ -1,0 +1,4 @@
+name: cafecosmos-py
+
+plugins:
+  - name: solidity
