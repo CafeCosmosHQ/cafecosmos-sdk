@@ -5,3 +5,4 @@ numpy
 thefuzz
 ipython
 eth_abi
+jupyterlab
