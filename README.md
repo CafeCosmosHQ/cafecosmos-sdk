@@ -25,7 +25,6 @@ jupyter lab autofarm.ipynb #you could also use the vscode jupyter extension
 
 The `Player` class provides a robust interface for interacting with the `CafeCosmos` game environment. It manages the player's resources, inventory, land operations, crafting, and various game-related activities.
 
----
 
 ## **Initialization**
 
