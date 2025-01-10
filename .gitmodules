@@ -1,0 +1,3 @@
+[submodule "cafecosmos-contracts"]
+	path = cafecosmos-contracts
+	url = git@github.com:CafeCosmosHQ/cafecosmos-abis.git

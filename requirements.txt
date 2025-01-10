@@ -1,0 +1,7 @@
+web3
+python-dotenv
+pandas
+numpy
+thefuzz
+ipython
+eth_abi
