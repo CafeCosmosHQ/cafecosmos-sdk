@@ -5,7 +5,7 @@ A Python API for CafeCosmos
 
 # Installation 
 
-* You should have python installed *
+**You should have python installed**
 
 ```bash
 git clone https://github.com/CafeCosmosHQ/cafecosmos-sdk.git
