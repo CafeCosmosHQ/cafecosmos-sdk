@@ -19,6 +19,8 @@ pip3 install -r requirements.txt
 jupyter lab autofarm.ipynb #you could also use the vscode jupyter extension
 ```
 
+The best way to get started is to run that notebook
+
 ---
 
 # **Player Class Documentation**
