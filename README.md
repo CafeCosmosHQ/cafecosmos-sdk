@@ -16,5 +16,5 @@ source .venv/bin/activate #(or .venv/bin/activate.fish for fish 🐠)
 
 pip3 install -r requirements.txt
 
-jupyter lab autofarm.ipynb
+jupyter lab autofarm.ipynb #you could also use the vscode jupyter extension
 ```
