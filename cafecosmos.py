@@ -176,7 +176,6 @@ class Player(_Player):
             pd.DataFrame: A DataFrame containing craftable items and their maximum quantities.
         """
         return get_craftable(self)
-    
 
     def time_until_unlock(self, x, y):
         """
@@ -194,19 +193,19 @@ class Player(_Player):
         land_item = self.cafecosmos.indexer.LandItem.get(landId=self.land_id, x=x, y=y)
         itemid = land_item[0]["itemid"]
         placement_time = land_item[0]["placementtime"]
-        print(itemid)
-        unlock_time = None
+        unlock_time = 0
         try:
             unlock_time = self.cafecosmos.indexer.Transformations.get(base=itemid, input=0)[0]["unlocktime"]
-            timestamp = self.cafecosmos.w3.eth.get_block('latest').timestamp
-            time_until = (int(unlock_time)+int(placement_time))-timestamp
-            print(unlock_time)
-            if(time_until<0):
-                time_until = 0
-            return time_until
-
         except TypeError as e:
             "coordinates are not unlockable"
+
+        timestamp = self.cafecosmos.w3.eth.get_block('latest').timestamp
+
+        time_until = (int(unlock_time)+int(placement_time))-timestamp
+        if(time_until<0):
+            time_until = 0
+
+        return time_until
 
 
     @staticmethod
@@ -729,71 +728,3 @@ def get_craftable(player: Player) -> pd.DataFrame:
 
 
     return craftable_df
-
-# def get_unlockable_transformations(world: World, land_id: int) -> pd.DataFrame:
-#     """
-#     Determine which transformations can be unlocked based on the player's land inventory.
-
-#     Args:
-#         world (World): The world object containing indexers.
-#         land_id (int): The ID of the player's land.
-
-#     Returns:
-#         pd.DataFrame: A DataFrame of transformations that can be unlocked.
-#     """
-#     # Fetch land items
-#     land_items = world.indexer.LandItem.get(landId=land_id)
-#     transformations = world.indexer.Transformations.get()
-#     timestamp = world.w3.eth.get_block('latest').timestamp
-
-#     # Count the available items on the land
-
-
-#     for item in land_items:
-#         item_id = int(item["itemid"])
-#         if item_id == 0:  # Ignore placeholder or empty items
-#             continue
-#         if(item)
-
-#     # print("land_inventory", land_inventory)
-#     # Determine unlockable transformations
-#     unlockable = []
-#     for trans in transformations:
-#         input_id = int(trans["input"])
-#         required_quantity = int(trans.get("yieldquantity", 1))  # Default to 1 if not specified
-#         if input_id in land_inventory and land_inventory[input_id] >= required_quantity:
-#             unlockable.append({
-#                 "Base": int(trans["base"]),
-#                 "Input": input_id,
-#                 "Next": int(trans["next"]),
-#                 "Yield": int(trans["yield"]),
-#                 "YieldQuantity": required_quantity,
-#                 "UnlockTime": int(trans["unlocktime"]),
-#                 "Timeout": int(trans["timeout"]),
-#                 "IsRecipe": trans["isrecipe"],
-#                 "IsWaterCollection": trans["iswatercollection"],
-#                 "XP": int(trans["xp"]),
-#                 "Exists": trans["exists"]
-#             })
-
-#     # Convert to DataFrame
-#     unlockable_df = pd.DataFrame(unlockable)
-#     if unlockable_df.empty:
-#         print("No transformations can be unlocked.")
-#     else:
-#         unlockable_df.sort_values(by=["Base", "Input"], inplace=True)
-
-#     return unlockable_df
-
-# def get_time_to_unlock(player: Player) -> pd.DataFrame:
-    
-    
-
-# def collect_all(player: Player):
-#     """
-#     Collect all collectable resources from the player's land.
-#     """
-#     # Call the collectAll function in the World contract
-    
-#     function_call = player.cafecosmos.collectAll(player.land_id, mode="raw")
-#     _execute_function_call(player=player, function_call=function_call)
