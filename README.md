@@ -8,7 +8,7 @@ A Python API for CafeCosmos
 **You should have python installed**
 
 ```bash
-git clone https://github.com/CafeCosmosHQ/cafecosmos-sdk.git
+git clone --recurse-submodules https://github.com/CafeCosmosHQ/cafecosmos-sdk.git
 cd cafecosmos-sdk
 
 python3 -m venv .venv
