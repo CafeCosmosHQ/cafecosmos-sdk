@@ -177,25 +177,6 @@ class Player(_Player):
         """
         return get_craftable(self)
     
-    def time_until_unlock(self, x, y):
-        """
-        Calculate the time remaining for an item at (x, y) to unlock.
-
-        Args:
-            x (int): The x-coordinate of the item.
-            y (int): The y-coordinate of the item.
-
-        Returns:
-            int: The number of seconds remaining until the item is ready for unlock.
-                 Returns 0 if the item is already unlocked.
-        """
-        # Fetch the land data
-        land_item = self.cafecosmos.indexer.LandItem.get(landId=self.land_id, x=x, y=y)
-        unlock_time = self.cafecosmos.indexer.Transformations.get(base=land_item["itemId"])
-    
-
-        # If no item is found at (x, y), raise an error
-        raise ValueError(f"No item found at coordinates ({x}, {y}) on land ID {self.land_id}.")
 
     def time_until_unlock(self, x, y):
         """
@@ -214,20 +195,18 @@ class Player(_Player):
         itemid = land_item[0]["itemid"]
         placement_time = land_item[0]["placementtime"]
         print(itemid)
+        unlock_time = None
         try:
             unlock_time = self.cafecosmos.indexer.Transformations.get(base=itemid, input=0)[0]["unlocktime"]
+            timestamp = self.cafecosmos.w3.eth.get_block('latest').timestamp
+            time_until = (int(unlock_time)+int(placement_time))-timestamp
             print(unlock_time)
+            if(time_until<0):
+                time_until = 0
+            return time_until
+
         except TypeError as e:
             "coordinates are not unlockable"
-
-        timestamp = self.cafecosmos.w3.eth.get_block('latest').timestamp
-        print(timestamp, unlock_time)
-
-        time_until = (int(unlock_time)+int(placement_time))-timestamp
-        if(time_until<0):
-            time_until = 0
-
-        return time_until
 
 
     @staticmethod
